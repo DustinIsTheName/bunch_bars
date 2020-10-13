@@ -12,7 +12,11 @@ module BunchBars
     config.load_defaults 6.0
     config.autoload_paths += %W(#{config.root}/lib/functions)
 
-    config.hosts << "f643abca946c.ngrok.io"
+    if Rails.env.development?
+      config.hosts << "f643abca946c.ngrok.io"
+    else
+      config.hosts << "bunch-bars.herokuapp.com"
+    end
 
     ShopifyAPI::Base.site = "https://#{ENV["API_KEY"]}:#{ENV["PASSWORD"]}@#{ENV["SHOPIFY_URL"]}/admin"
     ShopifyAPI::Base.api_version = '2020-04'
